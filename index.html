@@ -68,7 +68,7 @@
   >
     <!-- ==================== NAVBAR ==================== -->
     <header
-      class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b border-pink-100"
+      class="fixed top-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-b border-pink-100"
     >
       <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
@@ -80,6 +80,7 @@
             <span class="text-lg font-bold text-pink-600">Senyum Sehat</span>
           </a>
 
+          <!-- Menu Desktop -->
           <ul
             class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600"
           >
@@ -113,13 +114,13 @@
             </li>
           </ul>
 
+          <!-- Tombol Hamburger Mobile -->
           <button
-            @click="mobileMenu = !mobileMenu"
+            @click="mobileMenu = true"
             class="md:hidden p-2 rounded-md text-pink-600 hover:bg-pink-50"
-            aria-label="Menu"
+            aria-label="Buka Menu"
           >
             <svg
-              x-show="!mobileMenu"
               xmlns="http://www.w3.org/2000/svg"
               class="w-6 h-6"
               fill="none"
@@ -133,78 +134,101 @@
                 d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
-            <svg
-              x-show="mobileMenu"
-              x-cloak
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
           </button>
-        </div>
-
-        <div
-          x-show="mobileMenu"
-          x-cloak
-          x-transition
-          class="md:hidden pb-4 border-t border-pink-100 mt-2"
-        >
-          <ul
-            class="flex flex-col gap-1 pt-2 text-sm font-medium text-gray-700"
-          >
-            <li>
-              <a
-                @click="mobileMenu=false"
-                href="#menu-1"
-                class="block px-3 py-2 rounded hover:bg-pink-50"
-                >Pentingnya</a
-              >
-            </li>
-            <li>
-              <a
-                @click="mobileMenu=false"
-                href="#menu-2"
-                class="block px-3 py-2 rounded hover:bg-pink-50"
-                >Masalah</a
-              >
-            </li>
-            <li>
-              <a
-                @click="mobileMenu=false"
-                href="#menu-3"
-                class="block px-3 py-2 rounded hover:bg-pink-50"
-                >Gingivitis</a
-              >
-            </li>
-            <li>
-              <a
-                @click="mobileMenu=false"
-                href="#menu-4"
-                class="block px-3 py-2 rounded hover:bg-pink-50"
-                >Pencegahan</a
-              >
-            </li>
-            <li>
-              <a
-                @click="mobileMenu=false"
-                href="#kontak"
-                class="block px-3 py-2 rounded bg-pink-500 text-white text-center hover:bg-pink-600"
-                >Kontak</a
-              >
-            </li>
-          </ul>
         </div>
       </nav>
     </header>
+
+    <!-- ==================== MOBILE SIDEBAR MENU (OFF-CANVAS) ==================== -->
+    
+    <!-- Overlay (Area Luar) -->
+    <div
+      x-show="mobileMenu"
+      x-cloak
+      x-transition:enter="transition-opacity ease-linear duration-300"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition-opacity ease-linear duration-300"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+      @click="mobileMenu = false"
+      class="fixed inset-0 bg-black/50 z-50 md:hidden"
+    ></div>
+
+    <!-- Sidebar Panel -->
+    <div
+      x-show="mobileMenu"
+      x-cloak
+      x-transition:enter="transition ease-in-out duration-300 transform"
+      x-transition:enter-start="-translate-x-full"
+      x-transition:enter-end="translate-x-0"
+      x-transition:leave="transition ease-in-out duration-300 transform"
+      x-transition:leave-start="translate-x-0"
+      x-transition:leave-end="-translate-x-full"
+      class="fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-2xl flex flex-col md:hidden"
+    >
+      <!-- Header Sidebar -->
+      <div class="flex items-center gap-3 px-6 h-16 border-b border-pink-100">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-pink-500 text-white font-bold">S</span>
+        <span class="text-lg font-bold text-pink-600">Senyum Sehat</span>
+      </div>
+
+      <!-- List Menu -->
+      <div class="flex-1 overflow-y-auto py-4">
+        <ul class="flex flex-col gap-1 px-3 text-sm font-medium text-gray-700">
+          <li>
+            <a
+              @click="mobileMenu=false"
+              href="#menu-1"
+              class="block px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600 transition"
+            >
+              Pentingnya
+            </a>
+          </li>
+          <li>
+            <a
+              @click="mobileMenu=false"
+              href="#menu-2"
+              class="block px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600 transition"
+            >
+              Masalah
+            </a>
+          </li>
+          <li>
+            <a
+              @click="mobileMenu=false"
+              href="#menu-3"
+              class="block px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600 transition"
+            >
+              Gingivitis
+            </a>
+          </li>
+          <li>
+            <a
+              @click="mobileMenu=false"
+              href="#menu-4"
+              class="block px-4 py-3 rounded-xl hover:bg-pink-50 hover:text-pink-600 transition"
+            >
+              Pencegahan
+            </a>
+          </li>
+          <li>
+            <a
+              @click="mobileMenu=false"
+              href="#kontak"
+              class="block px-4 py-3 mt-4 rounded-xl bg-pink-500 text-white text-center hover:bg-pink-600 transition shadow-sm"
+            >
+              Kontak
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Footer Sidebar (Opsional, untuk keseimbangan visual) -->
+      <div class="p-6 border-t border-pink-100 text-xs text-gray-400 text-center">
+        © <span id="year-mobile"></span> Senyum Sehat
+      </div>
+    </div>
 
     <!-- ==================== HERO ==================== -->
     <section
@@ -487,7 +511,7 @@
           />
         </div>
 
-        <!-- 3.2 Tanda & Gejala -->
+        <!-- 3.2 Tanda & Gejala (TIDAK DIUBAH) -->
         <div class="grid md:grid-cols-2 gap-10 items-center mb-16">
           <img
             src="img/gejala radang gusi.jpeg"
@@ -501,15 +525,15 @@
             <ul class="mt-4 space-y-2 text-gray-600">
               <li class="flex gap-2">
                 <span class="text-pink-500 font-bold">•</span> Gusi mudah
-                berdarah
+                berdarah khususnya ketika menyikat gigi
               </li>
               <li class="flex gap-2">
                 <span class="text-pink-500 font-bold">•</span> Perubahan warna
-                gusi
+                gusi menjadi kemerahan
               </li>
               <li class="flex gap-2">
                 <span class="text-pink-500 font-bold">•</span> Perubahan tekstur
-                gusi
+                gusi menjadi lebih lunak
               </li>
               <li class="flex gap-2">
                 <span class="text-pink-500 font-bold">•</span> Perubahan bentuk
@@ -753,17 +777,29 @@
             <h3 class="text-xl font-bold text-pink-700">
               Perawatan jika Sudah Terkena Gingivitis
             </h3>
-            <p class="mt-4 text-gray-700 text-sm leading-relaxed">
-              Perawatan untuk mengatasi peradangan gusi adalah dengan melakukan
-              <strong>pembersihan karang gigi (scaling)</strong> oleh tenaga
-              kesehatan gigi untuk membantu mengurangi peradangan dan mencegah
-              kondisi gusi menjadi lebih parah.
-            </p>
-            <p class="mt-3 text-gray-700 text-sm leading-relaxed">
-              Jangan ragu untuk berkonsultasi ke dokter gigi jika mengalami
-              tanda-tanda gingivitis, terutama selama kehamilan, agar penanganan
-              dapat dilakukan sedini mungkin.
-            </p>
+            <ol
+              class="mt-4 space-y-3 text-gray-700 list-decimal list-inside text-sm leading-relaxed"
+            >
+              <li>
+                <strong>Meningkatkan kebersihan rongga mulut:</strong> Meliputi
+                perawatan profilaksis oleh tenaga profesional seperti
+                pembersihan karang gigi (<em>scaling</em>). Selain itu,
+                dianjurkan menyikat gigi rutin dengan pasta gigi berfluoride,
+                membersihkan sela gigi dengan benang gigi (<em>flossing</em>),
+                serta berkumur dengan larutan garam. Penggunaan obat kumur yang
+                mengandung klorheksidin juga dapat dipertimbangkan sebagai upaya
+                tambahan untuk mengendalikan peradangan.
+              </li>
+              <li>
+                <strong>Pemberian analgesik:</strong> Analgesik yang aman untuk
+                ibu hamil adalah acetaminofen dan ibuprofen.
+              </li>
+              <li>
+                <strong>Pemberian antibiotik:</strong> Golongan antibiotik yang
+                aman untuk ibu hamil adalah golongan penicillin, erythromycin,
+                clyndamycin, cephalosporin, dan metronidazol.
+              </li>
+            </ol>
           </div>
         </div>
       </div>
@@ -793,37 +829,4 @@
           <a
             href="https://wa.me/6285704301327"
             target="_blank"
-            rel="noopener"
-            class="px-6 py-3 rounded-full bg-pink-700/40 border-2 border-white/60 text-white font-semibold hover:bg-pink-700/60 transition"
-          >
-            💬 WhatsApp
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <footer class="bg-gray-900 text-gray-300">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div
-          class="flex flex-col md:flex-row justify-between items-center gap-4"
-        >
-          <div class="flex items-center gap-2">
-            <span
-              class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-pink-500 text-white font-bold"
-              >S</span
-            >
-            <span class="text-lg font-bold text-white">Senyum Sehat</span>
-          </div>
-          <p class="text-xs text-gray-500 text-center">
-            © <span id="year"></span> Senyum Sehat — Edukasi Kesehatan Gigi &
-            Mulut selama Kehamilan.
-          </p>
-        </div>
-      </div>
-    </footer>
-
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
-  </body>
-</html>
+           
